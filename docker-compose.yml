@@ -1,0 +1,27 @@
+version: '2'
+services:
+  
+  mongo:
+    image: mongo
+    restart: always
+    tty: true
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: production
+    ports:
+      - "27017:27017"
+  
+  app:
+    build: .
+    restart: always
+    tty: true
+    ports:
+      - "3333:3333"
+    volumes:
+      - logvolume01:/var/log
+    depends_on:
+      - mongo
+
+volumes:
+  logvolume01: {}
