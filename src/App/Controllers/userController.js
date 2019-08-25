@@ -1,6 +1,6 @@
 const User = require("../Models/users");
 const Token = require("../../Utils/refreshToken");
-const validator = require("validator");
+const validator = require("../../Utils/validate");
 const bcrypt = require("bcryptjs");
 
 class UserController {
@@ -12,11 +12,12 @@ class UserController {
     try {
       const { name, email, password, phones } = request.body;
 
-      if (!validator.isEmail(email))
+      const errors = validator(name, email, password);
+      if (errors.length !== 0)
         return response
           .status(500)
           .json({
-            mensage: "email invalido"
+            message: errors
           })
           .send();
 
@@ -27,22 +28,7 @@ class UserController {
         return response
           .status(500)
           .json({
-            mensage: "Usuario já cadastrado "
-          })
-          .send();
-
-      if (name.length < 2 || name.length > 100)
-        return response
-          .status(500)
-          .json({
-            mensage: "Nome invalido !"
-          })
-          .send();
-      if (password.length < 4)
-        return response
-          .status(500)
-          .json({
-            mensage: "Senha invalida !"
+            message: "Usuario já cadastrado "
           })
           .send();
 
