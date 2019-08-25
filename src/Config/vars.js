@@ -10,7 +10,7 @@ dotenv.config({
 module.exports = {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
-  expired_time: process.env.EXPIRATED_MINUTES,
+  expired_time: process.env.EXPIRE_MINUTES,
   secret: process.env.APP_SECRET,
   db_uri:
     process.env.NODE_ENV === "production"

@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
 const { secret } = require("../../Config/vars");
-const auth = (request, reponse, next) => {
+const auth = (request, response, next) => {
   const authorization = request.headers.authorization;
 
   if (!authorization)
-    return reponse
+    return response
       .status(401)
       .json({ message: "Sem Token de autenticação" })
       .send();
@@ -15,7 +15,7 @@ const auth = (request, reponse, next) => {
     jwt.verify(token, secret);
     next();
   } catch (error) {
-    return reponse
+    return response
       .status(401)
       .json({
         message: "Token invalido"

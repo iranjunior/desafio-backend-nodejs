@@ -1,14 +1,14 @@
 const request = require("supertest");
 const app = require("../../src/app");
-const trucante = require("../Utils/truncate");
+const truncate = require("../Utils/truncate");
 const faker = require("faker");
 let user;
 describe("Testar Criação de Usuarios", () => {
   beforeAll(async () => {
-    await trucante.user();
+    await truncate.user();
   });
   afterAll(async () => {
-    await trucante.user();
+    await truncate.user();
   });
   beforeEach(() => {
     user = {
@@ -33,7 +33,7 @@ describe("Testar Criação de Usuarios", () => {
         password: user.password,
         phones: user.phones
       });
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   it("Deve retornar 500 caso o nome enviado seja invalido com apenas um caracter", async () => {
     user.name = "t";
@@ -44,7 +44,7 @@ describe("Testar Criação de Usuarios", () => {
         email: user.email,
         password: user.password
       });
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   it("Deve retornar 500 caso o nome enviado seja invalido com mais de 100 um caracter", async () => {
     user.name =
@@ -57,7 +57,7 @@ describe("Testar Criação de Usuarios", () => {
         email: user.email,
         password: user.password
       });
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   it("Deve retornar 500 caso o senha enviada tenha menos de 4 caracteres", async () => {
     user.password = "sa2";
@@ -68,7 +68,7 @@ describe("Testar Criação de Usuarios", () => {
         email: user.email,
         password: user.password
       });
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   it("Deve Criar um usuario com sucesso", async () => {
     user.email = "testex_x@test.com.br";
@@ -93,6 +93,6 @@ describe("Testar Criação de Usuarios", () => {
         email: user.email,
         password: user.password
       });
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(403);
   });
 });

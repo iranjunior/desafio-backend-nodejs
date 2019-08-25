@@ -15,7 +15,7 @@ class UserController {
       const errors = validator(name, email, password);
       if (errors.length !== 0)
         return response
-          .status(500)
+          .status(400)
           .json({
             message: errors
           })
@@ -26,7 +26,7 @@ class UserController {
       });
       if (exists)
         return response
-          .status(500)
+          .status(403)
           .json({
             message: "Usuario já cadastrado "
           })

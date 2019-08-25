@@ -1,16 +1,16 @@
 const request = require("supertest");
 const app = require("../../src/app");
-const trucante = require("../Utils/truncate");
+const truncate = require("../Utils/truncate");
 const faker = require("faker");
 let user;
 describe("Testar autenticação de usuarios", () => {
   beforeAll(async () => {
-    await trucante.user();
+    await truncate.user();
   });
   afterAll(async () => {
-    await trucante.user();
+    await truncate.user();
   });
-  
+
   beforeEach(() => {
     user = {
       name: faker.name.findName(),
@@ -55,7 +55,7 @@ describe("Testar autenticação de usuarios", () => {
         email: user.email,
         password: user.password
       });
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(404);
   });
   it("Deve retornar 200 devido as informações estarem certa", async () => {
     const response = await request(app)
@@ -64,7 +64,7 @@ describe("Testar autenticação de usuarios", () => {
         email: user.email,
         password: user.password
       });
- 
+
     expect(response.status).toBe(200);
   });
 });

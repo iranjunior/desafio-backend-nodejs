@@ -6,26 +6,26 @@ class SessionControllers {
     this.auth.bind();
   }
 
-  async auth(request, reponse) {
+  async auth(request, response) {
     const { email, password } = request.body;
     let user = await User.findOne({
       email
     }).select(["uuid", "email", "password", "createdAt", "updatedAt"]);
 
     if (!user)
-      return reponse
+      return response
         .status(404)
         .json({
-          menssage: "Usuario e/ou senha inválidos"
+          message: "Usuario e/ou senha inválidos"
         })
         .send();
 
     const validate = await bcrypt.compare(password, user.password);
     if (!validate)
-      return reponse
-        .status(500)
+      return response
+        .status(404)
         .json({
-          menssage: "Usuario e/ou senha inválidos"
+          message: "Usuario e/ou senha inválidos"
         })
         .send();
 
@@ -45,13 +45,13 @@ class SessionControllers {
       user.token = token;
       user.last_login = last_login;
     } catch (error) {
-      return reponse
+      return response
         .status(500)
         .json(error)
         .send();
     }
 
-    return reponse
+    return response
       .status(200)
       .json({
         uuid: user.uuid,

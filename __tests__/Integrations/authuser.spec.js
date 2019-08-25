@@ -2,17 +2,17 @@
 const jwt = require("jsonwebtoken");
 const request = require("supertest");
 const app = require("../../src/app");
-const trucante = require("../Utils/truncate");
+const truncate = require("../Utils/truncate");
 const faker = require("faker");
 const { secret } = require("../../src/Config/vars");
 let user = {};
 
 describe("Testar rotas autenticadas", () => {
   beforeAll(async () => {
-    await trucante.user();
+    await truncate.user();
   });
   afterAll(async () => {
-    await trucante.user();
+    await truncate.user();
   });
 
   beforeEach(() => {

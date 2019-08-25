@@ -4,11 +4,12 @@ if (env !== "production") mongoose.set("debug", true);
 
 exports.connect = async () => {
   let connected = false;
-  let trys = 0;
+  let attempts = 0;
   while (!connected) {
     try {
-      trys += 1;
-      if (env !== "test") console.log("Trying to connect with DB! Try: ", trys);
+      attempts += 1;
+      if (env !== "test")
+        console.log("Trying to connect with DB! Attempts: ", attempts);
       await new Promise(done => setTimeout(done, 50));
       await mongoose.connect(db_uri, {
         useNewUrlParser: true,
