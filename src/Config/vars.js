@@ -13,7 +13,7 @@ module.exports = {
   expired_time: process.env.EXPIRE_MINUTES,
   secret: process.env.APP_SECRET,
   db_uri:
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === "development"
       ? process.env.DB_URI
       : process.env.DB_URI_TEST
 };

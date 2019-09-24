@@ -14,12 +14,17 @@ const UserSchema = new Schema(
       required: true,
       unique: true
     },
-    phones: [
-      {
-        type: String,
-        unique: true
-      }
-    ],
+    /* phones: [
+        {
+            ddd: {
+                type: String,
+                required: true
+              },
+             phone: {
+                 type: String,
+                 required: true
+             }
+    }], */
     password: {
       type: String,
       required: true,

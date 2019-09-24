@@ -10,7 +10,7 @@ class UserController {
   }
   async store(request, response) {
     try {
-      const { name, email, password, phones } = request.body;
+      const { name, email, password } = request.body;
 
       const errors = validator(name, email, password);
       if (errors.length !== 0)
@@ -43,7 +43,7 @@ class UserController {
         name,
         email,
         password: password_hash,
-        phones,
+        //phones,
         last_login,
         token
       });
@@ -61,7 +61,9 @@ class UserController {
     } catch (error) {
       return response
         .status(500)
-        .json(error.msg)
+        .json({
+            message: "Ocorreu algum erro no salvamento das informações"
+        })
         .send();
     }
   }
