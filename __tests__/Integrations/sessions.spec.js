@@ -4,9 +4,9 @@ const truncate = require("../Utils/truncate");
 const faker = require("faker");
 let user;
 describe("Testar autenticação de usuarios", () => {
-  beforeAll(async () => {
+  /* beforeAll(async () => {
     await truncate.user();
-  });
+  }); */
   afterAll(async () => {
     await truncate.user();
   });

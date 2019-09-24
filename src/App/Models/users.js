@@ -9,12 +9,16 @@ const UserSchema = new Schema(
       unique: true,
       default: uuid.generate()
     },
+    name:{
+        type: String,
+        required: true
+    },
     email: {
       type: String,
       required: true,
       unique: true
     },
-    /* phones: [
+    phones: [
         {
             ddd: {
                 type: String,
@@ -24,7 +28,7 @@ const UserSchema = new Schema(
                  type: String,
                  required: true
              }
-    }], */
+    }],
     password: {
       type: String,
       required: true,

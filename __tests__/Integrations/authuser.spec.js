@@ -8,9 +8,9 @@ const { secret } = require("../../src/Config/vars");
 let user = {};
 
 describe("Testar rotas autenticadas", () => {
-  beforeAll(async () => {
+ /*  beforeAll(async () => {
     await truncate.user();
-  });
+  }); */
   afterAll(async () => {
     await truncate.user();
   });
