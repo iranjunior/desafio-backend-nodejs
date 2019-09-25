@@ -66,4 +66,14 @@ UserSchema.pre('save', async function(next) {
 
     next();
 })
+
+UserSchema.static('verifyPassword', async function(email, password){
+    const [ user ] = await this.find({email}).select(['password'])
+
+    const validate = await bcrypt.compare(password, user.password)
+
+    return validate
+
+});
+
 module.exports = model("User", UserSchema);

@@ -1,5 +1,4 @@
 const User = require("../Models/users");
-const bcrypt = require("bcryptjs");
 const Token = require("../../Utils/refreshToken");
 class SessionControllers {
   constructor() {
@@ -20,7 +19,8 @@ class SessionControllers {
         })
         .send();
 
-    const validate = await bcrypt.compare(password, user.password);
+    const validate = await User.verifyPassword(email, password);
+
     if (!validate)
       return response
         .status(404)
