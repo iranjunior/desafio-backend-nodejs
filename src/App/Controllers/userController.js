@@ -1,7 +1,5 @@
 const User = require("../Models/users");
-const Token = require("../../Utils/refreshToken");
-// const validator = require("../../Utils/validate");
-const bcrypt = require("bcryptjs");
+
 
 class UserController {
   constructor() {
@@ -12,15 +10,6 @@ class UserController {
     try {
       const { name, email, password, phones } = request.body;
 
-      /* const errors = validator(name, email, password);
-      if (errors.length !== 0)
-        return response
-          .status(400)
-          .json({
-            message: errors
-          })
-          .send();
- */
       const exists = await User.findOne({
         email
       });
@@ -32,20 +21,13 @@ class UserController {
           })
           .send();
 
-      const salts = bcrypt.genSaltSync();
 
-      const password_hash = bcrypt.hashSync(password, salts);
-
-      const last_login = Date.now();
-      const token = Token.generate(last_login);
 
       const user = await User.create({
         name,
         email,
-        password: password_hash,
-        phones,
-        last_login,
-        token
+        password,
+        phones
       });
 
       return response
@@ -55,13 +37,13 @@ class UserController {
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
           last_login: user.last_login,
-          token
+          token: user.token
         })
         .send();
     } catch (error) {
       return response
         .status(500)
-        .json(error.msg)
+        .json({error})
         .send();
     }
   }

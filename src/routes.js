@@ -5,7 +5,7 @@ const SessionController = require("./App/Controllers/sessionControllers");
 const Validate = require('./App/Middleware/validate');
 
 routes.post("/signup", Validate.signUp, UserController.store);
-routes.post("/signin", SessionController.auth);
+routes.post("/signin", Validate.signIn, SessionController.auth);
 
 routes.use(auth);
 

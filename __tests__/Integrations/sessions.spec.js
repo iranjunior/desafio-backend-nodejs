@@ -4,25 +4,33 @@ const truncate = require("../Utils/truncate");
 const faker = require("faker");
 let user;
 describe("Testar autenticação de usuarios", () => {
-  /* beforeAll(async () => {
+   beforeAll(async () => {
+    user = {
+        name: faker.name.findName(),
+        email: "testekhg@test.com",
+        password: "12sdsfds@fds",
+        phones: [
+          {
+              ddd: "081",
+              phone: "97907717"
+          },
+          {
+            ddd: "081",
+            phone: "85741254"
+         },
+         {
+            ddd: "081",
+            phone: "977656385"
+        },
+        ]
+      };
+
     await truncate.user();
-  }); */
+  });
   afterAll(async () => {
     await truncate.user();
   });
 
-  beforeEach(() => {
-    user = {
-      name: faker.name.findName(),
-      email: "testekhg@test.com.br",
-      password: "12344444",
-      phones: [
-        faker.phone.phoneNumberFormat(1),
-        faker.phone.phoneNumberFormat(1),
-        faker.phone.phoneNumberFormat(1)
-      ]
-    };
-  });
 
   it("Deve Criar um usuario com sucesso", async () => {
     const response = await request(app)
@@ -47,7 +55,10 @@ describe("Testar autenticação de usuarios", () => {
       });
     expect(response.status).toBe(404);
   });
+
+
   it("Deve retornar 500 devido a senha está errada", async () => {
+    user.email = "testekhg@test.com";
     user.password = faker.internet.password();
     const response = await request(app)
       .post("/signin")
@@ -57,7 +68,12 @@ describe("Testar autenticação de usuarios", () => {
       });
     expect(response.status).toBe(404);
   });
+
+
   it("Deve retornar 200 devido as informações estarem certa", async () => {
+    user.email = "testekhg@test.com";
+    user.password = "12sdsfds@fds";
+
     const response = await request(app)
       .post("/signin")
       .send({

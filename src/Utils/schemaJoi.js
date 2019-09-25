@@ -5,7 +5,7 @@ const phones = Joi.object({
 
 })
 const signUp = Joi.object({
-    name: Joi.string().required().pattern(/^[a-zA-Z\s]{2,80}$/),
+    name: Joi.string().required().pattern(/^[a-zA-Z\s.]{2,80}$/),
     email: Joi.string().required().email({minDomainSegments: 2 , tlds: {allow: ['com', 'net']}}),
     password: Joi.string().required().pattern(/^[a-zA-Z0-9?!@#$%¨&*()_-]{8,20}$/),
     phones: Joi.array().items( phones )
@@ -13,7 +13,7 @@ const signUp = Joi.object({
 
 const singIn = Joi.object({
     email: Joi.string().email({minDomainSegments: 2 , tlds: {allow: ['com', 'net']}}).required(),
-    password: Joi.string().pattern(/^[a-zA-Z0-9]{8,20}%/)
+    password: Joi.string().required().pattern(/^[a-zA-Z0-9?!@#$%¨&*()_-]{8,20}$/)
 });
 
 module.exports = {

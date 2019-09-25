@@ -8,22 +8,33 @@ const { secret } = require("../../src/Config/vars");
 let user = {};
 
 describe("Testar rotas autenticadas", () => {
- /*  beforeAll(async () => {
+  beforeAll(async () => {
     await truncate.user();
-  }); */
+  });
   afterAll(async () => {
     await truncate.user();
   });
 
   beforeEach(() => {
-    user.name = faker.name.findName();
-    user.email = "testekhg@test.com.br";
-    user.password = "12344444";
-    user.phones = [
-      faker.phone.phoneNumberFormat(1),
-      faker.phone.phoneNumberFormat(1),
-      faker.phone.phoneNumberFormat(1)
-    ];
+
+        user.name = faker.name.findName();
+        user.email = "testekhg@test.com";
+        user.password = "12sdsfds@fds";
+        user.phones = [
+          {
+              ddd: "081",
+              phone: "97907717"
+          },
+          {
+            ddd: "081",
+            phone: "85741254"
+         },
+         {
+            ddd: "081",
+            phone: "977656385"
+        },
+        ]
+
   });
 
   it("Deve Criar um usuario com sucesso", async () => {
@@ -38,6 +49,7 @@ describe("Testar rotas autenticadas", () => {
 
     expect(response.status).toBe(201);
   });
+
   it("Deve logar com sucesso", async () => {
     const response = await request(app)
       .post("/signin")
@@ -45,7 +57,6 @@ describe("Testar rotas autenticadas", () => {
         email: user.email,
         password: user.password
       });
-
     user.token = response.body.token;
     user.uuid = response.body.uuid;
     expect(response.status).toBe(200);
