@@ -57,8 +57,8 @@ describe("Testar rotas autenticadas", () => {
         email: user.email,
         password: user.password
       });
-    user.token = response.body.token;
-    user.uuid = response.body.uuid;
+    user.token = response.body.user.token;
+    user.uuid = response.body.user.uuid;
     expect(response.status).toBe(200);
   });
   it("Deve errar devido a falta de token", async () => {
@@ -71,7 +71,7 @@ describe("Testar rotas autenticadas", () => {
       .get("/user/1234")
       .set("Authorization", `Bearer ${user.token}`);
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(404);
   });
   it("Deve dar errado devido ao token ter expirado", async () => {
     const token = jwt.sign(

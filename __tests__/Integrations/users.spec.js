@@ -121,6 +121,6 @@ describe("Testar Criação de Usuarios", () => {
         password: user.password,
         phones: user.phones
       });
-    expect(response.status).toBe(403);
+    expect(response.status).toBe(404);
   });
 });

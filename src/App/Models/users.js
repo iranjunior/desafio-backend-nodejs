@@ -76,4 +76,34 @@ UserSchema.static('verifyPassword', async function(email, password){
 
 });
 
+UserSchema.static('loginUser', async function(email){
+    const last_login = Date.now();
+
+    const token = Token.generate(last_login)
+
+    await this.updateOne({email}, {last_login, token})
+    return await this.findOne({email}).select(['uuid', 'createdAt', 'updatedAt', 'last_login', 'token'])
+})
+
+UserSchema.static('checkUser', async function(email){
+    try {
+        const [ user ] = await this.find({email})
+        return !!user
+    } catch (error) {
+        return false
+    }
+})
+
+
+UserSchema.static('findForId', async function(uuid){
+    try {
+        const [ user ] = await this.find({uuid})
+        return user
+    } catch (error) {
+        return false
+    }
+})
+
+
+
 module.exports = model("User", UserSchema);
