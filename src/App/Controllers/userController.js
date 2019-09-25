@@ -1,10 +1,10 @@
 const UserModel = require("../Models/users");
 
-const storeLocal = async (request, response, User) => {
+const storeLocal =  (request, response, User) => {
     try {
         const { name, email, password, phones } = request.body;
 
-        const exists =  User.checkUser(email);
+        const exists = User.checkUser(email);
 
         if (exists) {
             return response
@@ -13,7 +13,7 @@ const storeLocal = async (request, response, User) => {
                 .send();
         }
 
-        const user = await User.create({
+        const user =  User.create({
             name,
             email,
             password,

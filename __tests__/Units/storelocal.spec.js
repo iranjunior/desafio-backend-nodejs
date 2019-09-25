@@ -7,7 +7,7 @@ const responseMock = {
     status: (someStatusCode) => ({
         json: (someJsonBody) => ({
             send: () => ({
-                statusCode: someStatusCode,
+                status: someStatusCode,
                 body: someJsonBody,
             })
         })
@@ -47,7 +47,7 @@ describe("Teste de store no Controller", () => {
     });
 
     it("Deve Falhar pois usuario já exist", () => {
-        const response = storeLocal({body: user}, responseMock, userModelMock)
+        const response =  storeLocal({body: user}, responseMock, userModelMock)
 
         expect(response.status).toBe(404)
     })
