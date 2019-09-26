@@ -1,3 +1,4 @@
+require("./Units/storelocal.spec");
 require("./Units/conectDB.spec");
 require("./Units/crypt.spec");
 require("./Units/faker.spec");

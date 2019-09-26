@@ -57,7 +57,7 @@ describe("Testar autenticação de usuarios", () => {
   });
 
 
-  it("Deve retornar 500 devido a senha está errada", async () => {
+  it("Deve retornar 404 devido a senha está errada", async () => {
     user.email = "testekhg@test.com";
     user.password = faker.internet.password();
     const response = await request(app)

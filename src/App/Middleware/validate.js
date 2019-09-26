@@ -4,7 +4,7 @@ const signUp = async (request, response, next) => {
     const { name, email, password,  phones } = request.body
       try {
           const { error } =  await schema.signUp.validateAsync({name, email, password, phones})
-          if(error !== null)
+          if(!error)
           return next()
 
       } catch (error) {
@@ -20,7 +20,7 @@ const signIn = async (request, response, next) => {
     try {
         const { error } =  await schema.singIn.validateAsync({ email, password })
 
-        if(error !== null)
+        if(!error)
         return next()
     }
     catch(err){
