@@ -1,19 +1,19 @@
 const UserModel = require("../Models/users");
 
-const storeLocal =  (request, response, User) => {
+const storeLocal =  async (request, response, User = UserModel) => {
     try {
         const { name, email, password, phones } = request.body;
 
-        const exists = User.checkUser(email);
+        const exists = await User.checkUser(email);
 
         if (exists) {
             return response
-                .status(404)
+                .status(403)
                 .json({ message: "Usuario já cadastrado" })
                 .send();
         }
 
-        const user =  User.create({
+        const user =  await User.create({
             name,
             email,
             password,
@@ -38,7 +38,7 @@ const storeLocal =  (request, response, User) => {
     }
 };
 
-const showLocal = async (request, response, User) => {
+const showLocal = async (request, response, User = UserModel) => {
     try {
         const uuid = request.params.uuid;
 
