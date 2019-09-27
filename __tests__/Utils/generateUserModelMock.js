@@ -38,6 +38,7 @@ const UserModelMock = () => {
         userExists:() => ({...userExists}),
         problemDatabese: () => ({...problemDatabase}),
         createUser: () => ({...userDontExists, ...createUser})
+
     }
 };
 
