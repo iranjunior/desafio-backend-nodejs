@@ -1,10 +1,6 @@
-const User = require("../Models/users");
-class SessionControllers {
-  constructor() {
-    this.auth.bind();
-  }
+const UserModel = require("../Models/users");
 
-  async auth(request, response) {
+ const authLocal = async (request, response, User) => {
    try {
 
     const { email, password } = request.body;
@@ -36,5 +32,9 @@ class SessionControllers {
     return response.status(500).json({error}).send()
     }
 }
+
+module.exports = {
+    auth: (request, response) => authLocal(request, response, UserModel),
+    authLocal
+
 }
-module.exports = new SessionControllers();
