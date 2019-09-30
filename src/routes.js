@@ -10,6 +10,8 @@ routes.post('/signin', Validate.signIn, SessionController.auth);
 routes.use(auth);
 
 routes.get('/user/:uuid', UserController.show);
+routes.put('/user', UserController.update);
+
 routes.get('*', (request, response) => response
   .status(404)
   .json({

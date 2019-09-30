@@ -1,4 +1,4 @@
-const UUID = require('short-uuid');
+const uuid = require('short-uuid');
 const bcrypt = require('bcryptjs');
 const { Schema, model } = require('mongoose');
 const Token = require('../../Utils/refreshToken');
@@ -50,7 +50,7 @@ const UserSchema = new Schema(
 );
 
 UserSchema.pre('validate', async function (next) {
-  this.uuid = await UUID.generate();
+  this.uuid = await uuid().generate();
   this.lastLogin = Date.now();
 
   this.token = Token.generate(this.lastLogin);

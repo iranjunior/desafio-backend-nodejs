@@ -1,6 +1,6 @@
 const faker = require('faker');
 const Regenx = require('randexp');
-const { storeLocal } = require('../../src/App/Controllers/userController');
+const { updateLocal } = require('../../src/App/Controllers/userController');
 const UserModelMock = require('../Utils/generateUserModelMock');
 
 
@@ -16,6 +16,7 @@ const responseMock = () => ({
 });
 
 const user = {
+  uuid: faker.random.uuid(),
   name: faker.name.findName(),
   email: faker.internet.email(),
   password: faker.internet.password(),
@@ -30,20 +31,15 @@ const user = {
 
 describe('Teste de store no Controller', () => {
 
-  it('Deve Falhar pois usuario já exist', async () => {
-    const response = await storeLocal({ body: user }, responseMock(), UserModelMock().userExists());
+    it('Deve falhar devido ao usuario nao existir', async () => {
+        const response = await updateLocal({ headers: {authorization:  new Regenx(/^Bearer \w{90}$/).gen() } }, responseMock() , UserModelMock().updateFaield() )
 
-    expect(response.status).toBe(403);
-  });
-  it('Deve Falhar na requisição ao banco', async () => {
-    const response = await storeLocal({ body: user }, responseMock(), UserModelMock()
-      .problemDatabese());
+        expect(response.status).toBe(500);
+    });
 
-    expect(response.status).toBe(500);
-  });
-  it('Deve salvar usuario corretamente', async () => {
-    const response = await storeLocal({ body: user }, responseMock(), UserModelMock().createUser());
+    it('Deve atualizr usuario corretamente', async () => {
+        const response = await updateLocal({ headers: {authorization:  new Regenx(/^Bearer \w{90}$/).gen() }, body: user}, responseMock(), UserModelMock().updateSuccess())
 
-    expect(response.status).toBe(201);
-  });
+        expect(response.status).toBe(200)
+    });
 });

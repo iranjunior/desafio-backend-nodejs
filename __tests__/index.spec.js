@@ -1,3 +1,4 @@
+require('./Units/updateLocal.spec');
 require('./Units/storelocal.spec');
 require('./Units/authLocal.spec');
 require('./Units/conectDB.spec');
@@ -8,3 +9,4 @@ require('./Units/jwt.spec');
 require('./Integrations/users.spec');
 require('./Integrations/sessions.spec');
 require('./Integrations/authuser.spec');
+require('./Integrations/updateuser.spec');

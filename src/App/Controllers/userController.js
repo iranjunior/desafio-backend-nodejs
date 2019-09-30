@@ -76,10 +76,27 @@ const showLocal = async (request, response, User = UserModel) => {
       .send();
   }
 };
+    const updateLocal = async (request, response, User) => {
+
+        const  [, token]  = request.headers.authorization.split(' ');
+
+    try {
+        const user = await User.updateOne({token}, request.body)
+
+        return response.status(200).json({user}).send()
+    } catch (error) {
+        return response.status(500).json({error}).send();
+    }
+
+
+
+};
 
 module.exports = {
   store: (request, response) => storeLocal(request, response, UserModel),
   show: (request, response) => showLocal(request, response, UserModel),
+  update: (request, response) => updateLocal(request, response, UserModel),
   storeLocal,
   showLocal,
+  updateLocal,
 };
