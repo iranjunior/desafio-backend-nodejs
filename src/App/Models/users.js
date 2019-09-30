@@ -49,15 +49,15 @@ const UserSchema = new Schema(
   },
 );
 
-UserSchema.pre('validate', async function validate(next) {
+UserSchema.pre('validate', async function (next) {
   this.uuid = await UUID.generate();
-  this.last_login = Date.now();
+  this.lastLogin = Date.now();
 
-  this.token = Token.generate(this.last_login);
+  this.token = Token.generate(this.lastLogin);
   next();
 });
 
-UserSchema.pre('save', async function save(next) {
+UserSchema.pre('save', async function (next) {
   const salts = bcrypt.genSaltSync();
 
   this.password = await bcrypt.hashSync(this.password, salts);
@@ -65,7 +65,7 @@ UserSchema.pre('save', async function save(next) {
   next();
 });
 
-UserSchema.static('verifyPassword', async function verifyPassword(email, password) {
+UserSchema.static('verifyPassword', async function (email, password) {
   const [user] = await this.find({ email }).select(['password']);
 
   const validate = await bcrypt.compare(password, user.password);
@@ -73,7 +73,7 @@ UserSchema.static('verifyPassword', async function verifyPassword(email, passwor
   return validate;
 });
 
-UserSchema.static('loginUser', async function loginUser(email) {
+UserSchema.static('loginUser', async function (email) {
   const lastLogin = Date.now();
 
   const token = Token.generate(lastLogin);
@@ -84,7 +84,7 @@ UserSchema.static('loginUser', async function loginUser(email) {
   return user;
 });
 
-UserSchema.static('checkUser', async function checkUser(email) {
+UserSchema.static('checkUser', async function (email) {
   try {
     const [user] = await this.find({ email });
     return !!user;
@@ -94,7 +94,7 @@ UserSchema.static('checkUser', async function checkUser(email) {
 });
 
 
-UserSchema.static('findForId', async function findForId(uuid) {
+UserSchema.static('findForId', async function (uuid) {
   try {
     const [user] = await this.find({ uuid });
     return user;

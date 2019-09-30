@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "lint": "eslint ./src/ --ignore-path .gitignore --ignore-pattern internals/scripts",
-    "start": "NODE_ENV=production node src/index.js",
-    "test": "NODE_ENV=test jest index.spec.js --watch",
+    "start": "node src/index.js NODE_ENV=production",
+    "test": "jest index.spec.js --watch NODE_ENV=test",
     "test:unit": "NODE_ENV=test jest Units --watch",
     "test:integrations": "NODE_ENV=test jest Integrations --watch",
     "test:coverage": "NODE_ENV=test jest index.spec.js --collect-coverage",
