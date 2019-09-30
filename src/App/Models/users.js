@@ -73,6 +73,7 @@ UserSchema.static('verifyPassword', async function (email, password) {
   return validate;
 });
 
+
 UserSchema.static('loginUser', async function (email) {
   const lastLogin = Date.now();
 
