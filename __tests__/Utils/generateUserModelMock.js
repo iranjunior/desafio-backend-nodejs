@@ -112,6 +112,7 @@ const UserModelMock = () => {
             new Promise(resolve => {
                 setTimeout(
                     resolve({
+                        n:1,
                         uuid: faker.random.uuid(),
                         name: faker.name.findName(),
                         email: faker.internet.email(),
@@ -137,9 +138,13 @@ const UserModelMock = () => {
     };
     const updateFaield = {
         updateOne: () =>
-            new Promise((resolve, reject) => {
+            new Promise((resolve) => {
                 setTimeout(
-                    reject(new Error({message: "Nao foi possivel atualizar"})),
+                    resolve({
+                        n: 0,
+                        nModificated: 0,
+                        ok: 1
+                    }),
                     100
                 );
             })

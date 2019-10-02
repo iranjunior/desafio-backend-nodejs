@@ -9,10 +9,10 @@
     "lint": "eslint ./src/ --ignore-path .gitignore --ignore-pattern internals/scripts",
     "start": "node src/index.js NODE_ENV=production",
     "test": "jest index.spec.js --watch NODE_ENV=test",
-    "test:unit": "NODE_ENV=test jest Units --watch",
-    "test:integrations": "NODE_ENV=test jest Integrations --watch",
-    "test:coverage": "NODE_ENV=test jest index.spec.js --collect-coverage",
-    "validate": "yarn lint && NODE_ENV=test jest index.spec.js"
+    "test:unit": "jest Units --watch NODE_ENV=test",
+    "test:integrations": "jest Integrations --watch NODE_ENV=test",
+    "test:coverage": "index.spec.js --collect-coverage NODE_ENV=test jest ",
+    "validate": "yarn lint && jest index.spec.js NODE_ENV=test"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.4",

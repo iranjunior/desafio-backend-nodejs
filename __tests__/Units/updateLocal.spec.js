@@ -34,7 +34,7 @@ describe('Teste de store no Controller', () => {
     it('Deve falhar devido ao usuario nao existir', async () => {
         const response = await updateLocal({ headers: {authorization:  new Regenx(/^Bearer \w{90}$/).gen() } }, responseMock() , UserModelMock().updateFaield() )
 
-        expect(response.status).toBe(500);
+        expect(response.status).toBe(404);
     });
 
     it('Deve atualizr usuario corretamente', async () => {
