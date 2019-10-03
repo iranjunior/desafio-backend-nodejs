@@ -24,7 +24,8 @@ const UserModelMock = () => {
     const uuidUserValid = {
         findForId: () =>
             new Promise(resolve => {
-                setTimeout(resolve({
+                setTimeout(
+                    resolve({
                         uuid: faker.random.uuid(),
                         name: faker.name.findName(),
                         email: faker.internet.email(),
@@ -42,8 +43,10 @@ const UserModelMock = () => {
                         createdAt: new Date(),
                         updatedAt: new Date(),
                         last_login: new Date(),
-                        token: new Regenx(/ .+/).gen(),
-                }), 100);
+                        token: new Regenx(/ .+/).gen()
+                    }),
+                    100
+                );
             })
     };
     const passwordIncorret = {
@@ -101,7 +104,7 @@ const UserModelMock = () => {
                         createdAt: new Date(),
                         updatedAt: new Date(),
                         last_login: new Date(),
-                        token: new Regenx(/ .+/).gen(),
+                        token: new Regenx(/ .+/).gen()
                     }),
                     100
                 );
@@ -112,7 +115,7 @@ const UserModelMock = () => {
             new Promise(resolve => {
                 setTimeout(
                     resolve({
-                        n:1,
+                        n: 1,
                         uuid: faker.random.uuid(),
                         name: faker.name.findName(),
                         email: faker.internet.email(),
@@ -130,7 +133,7 @@ const UserModelMock = () => {
                         createdAt: new Date(),
                         updatedAt: new Date(),
                         last_login: new Date(),
-                        token: new Regenx(/ .+/).gen(),
+                        token: new Regenx(/ .+/).gen()
                     }),
                     100
                 );
@@ -138,7 +141,7 @@ const UserModelMock = () => {
     };
     const updateFaield = {
         updateOne: () =>
-            new Promise((resolve) => {
+            new Promise(resolve => {
                 setTimeout(
                     resolve({
                         n: 0,
@@ -147,6 +150,12 @@ const UserModelMock = () => {
                     }),
                     100
                 );
+            })
+    };
+    const deleteUserSucess = {
+        deleteOne: () =>
+            new Promise(resolve => {
+                setTimeout(resolve({}), 100);
             })
     };
     return {
@@ -159,8 +168,9 @@ const UserModelMock = () => {
         problemLogin: () => ({ ...userExists, ...passwordCorrect, ...problemLogin }),
         loginSuccess: () => ({ ...userExists, ...passwordCorrect, ...loginSuccess }),
         uuidInvalid: () => ({ ...uuidUserInvalid }),
-        updateSuccess: () => ({...updateSuccess}),
-        updateFaield: () => ({ ...updateFaield}),
+        updateSuccess: () => ({ ...updateSuccess }),
+        updateFaield: () => ({ ...updateFaield }),
+        deleteUserSucess: () => ({ ...deleteUserSucess })
     };
 };
 
