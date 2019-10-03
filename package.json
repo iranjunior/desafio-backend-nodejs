@@ -7,30 +7,29 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "lint": "eslint ./src/ --ignore-path .gitignore --ignore-pattern internals/scripts",
-    "start": "NODE_ENV=production node src/index.js",
-    "test": "NODE_ENV=test jest index.spec.js --watch",
-    "test:unit": "NODE_ENV=test jest Units --watch",
-    "test:integrations": "NODE_ENV=test jest Integrations --watch",
-    "test:coverage": "NODE_ENV=test jest index.spec.js --collect-coverage",
-    "validate": "yarn lint && NODE_ENV=test jest index.spec.js"
+    "start": "node src/index.js NODE_ENV=production",
+    "test": "jest index.spec.js --watch NODE_ENV=test",
+    "test:unit": "jest Units --watch NODE_ENV=test",
+    "test:integrations": "jest Integrations --watch NODE_ENV=test",
+    "test:coverage": "index.spec.js --collect-coverage NODE_ENV=test jest ",
+    "validate": "yarn lint && jest index.spec.js NODE_ENV=test"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.4",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "helmet": "^3.20.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.10",
     "node-pre-gyp": "^0.13.0",
-    "sequelize": "^5.15.2",
-    "short-uuid": "^3.1.1",
-    "uui": "^1.0.7",
-    "validator-js": "^0.2.1"
+    "short-uuid": "^3.1.1"
   },
   "devDependencies": {
-    "dotenv": "^8.1.0",
-    "eslint": "^6.2.2",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "factory-girl": "^5.0.4",
     "faker": "^4.1.0",
     "is-uuid": "^1.0.2",

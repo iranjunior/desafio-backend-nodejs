@@ -9,7 +9,9 @@ const auth = (request, response, next) => {
       .json({ message: "Sem Token de autenticação" })
       .send();
 
-  const [, token] = authorization.split(" ");
+  const [type , token] = authorization.split(" ");
+
+  if(type !== 'Bearer') return response.status(401).json({ message: 'Token Invalido'}).send();
 
   try {
     jwt.verify(token, secret);

@@ -1,6 +1,6 @@
 const UserModel = require("../Models/users");
 
-const storeLocal =  async (request, response, User = UserModel) => {
+const storeLocal = async (request, response, User = UserModel) => {
     try {
         const { name, email, password, phones } = request.body;
 
@@ -13,7 +13,7 @@ const storeLocal =  async (request, response, User = UserModel) => {
                 .send();
         }
 
-        const user =  await User.create({
+        const user = await User.create({
             name,
             email,
             password,
@@ -40,26 +40,28 @@ const storeLocal =  async (request, response, User = UserModel) => {
 
 const showLocal = async (request, response, User = UserModel) => {
     try {
-        const uuid = request.params.uuid;
+        const { uuid } = request.params;
 
         const user = await User.findForId(uuid);
-        if (!user)
+        if (!user) {
             return response
                 .status(404)
                 .json({
                     message: "Não Encontrado"
                 })
                 .send();
+        }
 
         const [, token] = request.headers.authorization.split(" ");
 
-        if (token !== user.token)
+        if (token !== user.token) {
             return response
                 .status(401)
                 .json({
                     message: "Não Autorizado"
                 })
                 .send();
+        }
 
         return response
             .status(200)
@@ -73,9 +75,36 @@ const showLocal = async (request, response, User = UserModel) => {
     }
 };
 
+const updateLocal = async (request, response, User) => {
+    const [, token] = request.headers.authorization.split(" ");
+
+    try {
+        const user = await User.updateOne({ token }, request.body);
+
+        if (!user.n) {
+            return response
+                .status(404)
+                .json({ message: "Usuario nao encontrado" })
+                .send();
+        }
+
+        return response
+            .status(200)
+            .json({ user })
+            .send();
+    } catch (error) {
+        return response
+            .status(500)
+            .json({ error })
+            .send();
+    }
+};
+
 module.exports = {
     store: (request, response) => storeLocal(request, response, UserModel),
     show: (request, response) => showLocal(request, response, UserModel),
+    update: (request, response) => updateLocal(request, response, UserModel),
     storeLocal,
-    showLocal
+    showLocal,
+    updateLocal
 };

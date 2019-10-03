@@ -1,8 +1,8 @@
-const express = require("express");
-const helmet = require("helmet");
-const routes = require("./routes");
-const mongoose = require("./Config/database");
-const cors = require("cors");
+const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
+const routes = require('./routes');
+const mongoose = require('./Config/database');
 
 const app = express();
 app.use(helmet());
