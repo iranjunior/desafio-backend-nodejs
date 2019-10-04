@@ -81,7 +81,7 @@ const updateLocal = async (request, response, User) => {
     try {
         const user = await User.updateOne({ token }, request.body);
 
-        if (!user.n) {
+        if (user.n === 0) {
             return response
                 .status(404)
                 .json({ message: "Usuario nao encontrado" })
@@ -100,11 +100,38 @@ const updateLocal = async (request, response, User) => {
     }
 };
 
+const destroyLocal = async (request, response, User) => {
+    const [, token] = request.headers.authorization.split(" ");
+
+    try {
+        const user = await User.deleteOne({ token });
+
+        if (user.n === 0) {
+            return response
+                .status(404)
+                .json({ message: "Usuario nao encontrado" })
+                .send();
+        }
+
+        return response
+            .status(200)
+            .json({ user })
+            .send();
+    } catch (err) {
+        return response
+            .status(500)
+            .json({ err })
+            .send();
+    }
+};
+
 module.exports = {
     store: (request, response) => storeLocal(request, response, UserModel),
     show: (request, response) => showLocal(request, response, UserModel),
     update: (request, response) => updateLocal(request, response, UserModel),
+    destroy: (request, response) => destroyLocal(request, response, UserModel),
     storeLocal,
     showLocal,
-    updateLocal
+    updateLocal,
+    destroyLocal
 };
