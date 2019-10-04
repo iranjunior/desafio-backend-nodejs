@@ -1,7 +1,6 @@
 const UserModelMock = require("../Utils/generateUserModelMock");
 const { destroyLocal } = require("../../src/App/Controllers/userController");
 const Regex = require("randexp");
-const user = {};
 const responseMock = () => ({
     status: statusLocal => ({
         json: objectLocal => ({
@@ -14,13 +13,22 @@ const responseMock = () => ({
 });
 
 describe("Testar o destroy no controller", () => {
+    it("Deve falhar ao apagar usuario", async () => {
+        const response = await destroyLocal(
+            { headers: { authorization: "" } },
+            responseMock(),
+            UserModelMock().deleteUserFailed()
+        );
+
+        expect(response.status).toBe(500);
+    });
     it("Deve apagar usuario com sucesso", async () => {
         const response = await destroyLocal(
             { headers: { authorization: `Bearer ${new Regex(/ .+/).gen()}` } },
             responseMock(),
             UserModelMock().deleteUserSucess()
         );
-        console.log("response :", response);
+
         expect(response.status).toBe(200);
     });
 });

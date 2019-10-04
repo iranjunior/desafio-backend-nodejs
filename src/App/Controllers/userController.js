@@ -81,7 +81,7 @@ const updateLocal = async (request, response, User) => {
     try {
         const user = await User.updateOne({ token }, request.body);
 
-        if (!user.n) {
+        if (user.n === 0) {
             return response
                 .status(404)
                 .json({ message: "Usuario nao encontrado" })
@@ -105,6 +105,13 @@ const destroyLocal = async (request, response, User) => {
 
     try {
         const user = await User.deleteOne({ token });
+
+        if (user.n === 0) {
+            return response
+                .status(404)
+                .json({ message: "Usuario nao encontrado" })
+                .send();
+        }
 
         return response
             .status(200)

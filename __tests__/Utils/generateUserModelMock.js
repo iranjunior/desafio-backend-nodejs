@@ -158,6 +158,12 @@ const UserModelMock = () => {
                 setTimeout(resolve({}), 100);
             })
     };
+    const deleteUserFailed = {
+        deleteOne: () =>
+            new Promise((resolve, reject) => {
+                setTimeout(reject(new Error({ message: "Erro ao apagar usuario" })), 100);
+            })
+    };
     return {
         userExists: () => ({ ...userExists }),
         problemDatabese: () => ({ ...problemDatabase }),
@@ -170,7 +176,8 @@ const UserModelMock = () => {
         uuidInvalid: () => ({ ...uuidUserInvalid }),
         updateSuccess: () => ({ ...updateSuccess }),
         updateFaield: () => ({ ...updateFaield }),
-        deleteUserSucess: () => ({ ...deleteUserSucess })
+        deleteUserSucess: () => ({ ...deleteUserSucess }),
+        deleteUserFailed: () => ({ ...deleteUserFailed })
     };
 };
 
