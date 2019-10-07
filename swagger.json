@@ -1,0 +1,15 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+
+        "description": "Está documentação é para a API do Onboarding do capitulo de Node",
+        "version": "1.0.0",
+        "title": "Documentação",
+        "license":{
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+    "host": "localhost:3333",
+    "basePath": "/"
+    }
+}
