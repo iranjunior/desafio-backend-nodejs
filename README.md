@@ -11,6 +11,14 @@
 	- [Clonagem do Projeto](#clonagem-do-projeto)
 	- [Comandos de inicialização](#comandos-de-inicialização)
 - [Estrutura das pastas](#estrutura-das-pastas)
+- [Rotas](#rotas)
+    - [Tabela de rotas](#tabela-de-rotas)
+    - [Exemplos de uso](#exemplos-de-uso)
+        - [Criar usuario](#criar-usuario)
+        - [Login usuario](#login-usuario)
+        - [Buscar usuario](#buscar-usuario)
+        - [Atualizar usuario](#atualizar-usuario)
+        - [Apagar usuario](#apagar-usuario)
 ## Sobre o projeto
 
 Este desafio trate-se de uma das etapas no processo seletivo para a Concrete Solutions neste projeto é empregrado varias bibliotecas para um desenvolvimento eficaz da api, tais como :  **Express**, **Mongoose**, **Jest**, **ESLint**, **Cors**,  **Faker**, entre outras.
@@ -35,7 +43,7 @@ Este desafio trate-se de uma das etapas no processo seletivo para a Concrete Sol
 - [Yarn](https://yarnpkg.com/lang/en/docs/install) ou [NPM](https://www.npmjs.com/get-npm)
 
 ### Clonagem do Projeto
-Para clonar este desadio em seu reositorio local, você ira precisar do [Git](https://git-scm.com/ "Git"), uma vez instalado corretamente você pode executar o comando: 
+Para clonar este desadio em seu reositorio local, você ira precisar do [Git](https://git-scm.com/ "Git"), uma vez instalado corretamente você pode executar o comando:
 ```bash
 $ git clone https://github.com/iranjunior/desafio-backend-nodejs.git
 ```
@@ -86,4 +94,194 @@ Comandos  | Tarefa a ser realizada
 	├─── Utils/
 		└─── ...
 	...
+```
+
+## Rotas
+
+A api tem algumas rotas disponiveis para sua atualização, neste documento você encontrar quais rotas são essas e um breve exemplo de como utilizar-las
+### Tabela de rotas
+
+As rotas da aplicação estão listadas na tabela abaixo:
+
+Rota  |  Descrição
+--------------------  | --------------
+`POST /signup`  | Está é uma rota para criar um usuario
+`POST /signin`  | Está é a rota de authenticação de usuario
+`GET /user/:uuid`  | Está rota busca o usuario com o uuid passado no query paraments, desde que seja o mesmo que está requerindo as informações
+`PUT /user`  | Está é a rota que atualiza o usuario que está requerindo as informações
+`DELETE /user`  | Está é a rota que apaga o usuario que foi passado no token de authenticação
+
+
+### Exemplos de uso
+
+#### Criar usuario
+
+```
+POST /signup
+```
+
+**Headers**
+```
+Content-Type     application/json
+```
+
+**Body**
+
+```
+{
+    "email": "iranjunior94@gmail.com",
+	"name": "Iran Junior",
+	"password": "ljhgjhfkufoi",
+    "phones": [
+    	{
+    		"ddd": "081",
+    		"phone": "21444687"
+
+    	},
+    	{
+    		"ddd": "081",
+    		"phone": "97747456"
+
+    	},...
+    	]
+}
+```
+
+**Response**
+```
+{
+    "user": {
+        "_id": "5d969cfa5c93d146785a0d3b",
+        "uuid": "p5kBvyEKU4JvwAEUeqq9KC",
+        "lastLogin": "2019-10-04T01:14:40.962Z",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI4MjYyNzMwMjQwMDAsImlhdCI6MTU3MDE1MTY4MH0.XHmoVntNJqGdAqVO2AkeumG3BAaaSmpbnah7SeVC8a8",
+        "createdAt": "2019-10-04T01:14:34.232Z",
+        "updatedAt": "2019-10-04T01:14:40.964Z"
+    }
+}
+```
+
+
+#### Login usuario
+
+```
+POST /signin
+```
+
+**Headers**
+```
+Content-Type     application/json
+```
+
+**Body**
+
+```
+{
+    "email": "iranjunior94@gmail.com",
+	"password": "ljhgjhfkufoi"
+}
+```
+
+**Response**
+```
+{
+        "_id": "5d969cfa5c93d146785a0d3b",
+        "uuid": "p5kBvyEKU4JvwAEUeqq9KC",
+        "lastLogin": "2019-10-04T01:14:40.962Z",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI4MjYyNzMwMjQwMDAsImlhdCI6MTU3MDE1MTY4MH0.XHmoVntNJqGdAqVO2AkeumG3BAaaSmpbnah7SeVC8a8",
+        "createdAt": "2019-10-04T01:14:34.232Z",
+        "updatedAt": "2019-10-04T01:14:40.964Z"
+}
+```
+
+
+#### Buscar usuario
+
+```
+GET /user/5d969cfa5c93d146785a0d3b
+```
+
+**Headers**
+```
+Content-Type     application/json
+Authorization    Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI4MjYyNzMwMjQwMDAsImlhdCI6MTU3MDE1MTY4MH0.XHmoVntNJqGdAqVO2AkeumG3BAaaSmpbnah7SeVC8a8
+```
+
+**Body**
+
+```
+```
+**Response**
+```
+{
+    "user": {
+        "_id": "5d969cfa5c93d146785a0d3b",
+        "uuid": "p5kBvyEKU4JvwAEUeqq9KC",
+        "email": "iranjunior94@gmail.com",
+	    "name": "Iran Junior",
+	    "password": "ljhgjhfkufoi",
+        "phones": [
+    	    {
+    	    	"ddd": "081",
+    	    	"phone": "21444687"
+
+    	    },
+    	    {
+    	    	"ddd": "081",
+    	    	"phone": "97747456"
+
+    	    },...
+    	    ]
+        "lastLogin": "2019-10-04T01:14:40.962Z",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI4MjYyNzMwMjQwMDAsImlhdCI6MTU3MDE1MTY4MH0.XHmoVntNJqGdAqVO2AkeumG3BAaaSmpbnah7SeVC8a8",
+        "createdAt": "2019-10-04T01:14:34.232Z",
+        "updatedAt": "2019-10-04T01:14:40.964Z"
+    }
+}
+```
+
+
+#### Atualizar usuario
+
+```
+PUT /user
+```
+
+**Headers**
+```
+Content-Type     application/json
+Authorization    Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI4MjYyNzMwMjQwMDAsImlhdCI6MTU3MDE1MTY4MH0.XHmoVntNJqGdAqVO2AkeumG3BAaaSmpbnah7SeVC8a8
+```
+
+**Body**
+
+```
+{
+    "email": "iranjunior94@gmail.com"
+}
+```
+
+**Response**
+```
+```
+
+#### Apagar usuario
+
+```
+DELETE /user
+```
+
+**Headers**
+```
+Content-Type     application/json
+Authorization    Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI4MjYyNzMwMjQwMDAsImlhdCI6MTU3MDE1MTY4MH0.XHmoVntNJqGdAqVO2AkeumG3BAaaSmpbnah7SeVC8a8
+```
+
+**Body**
+
+```
+```
+
+**Response**
+```
 ```
