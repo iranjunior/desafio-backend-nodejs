@@ -30,19 +30,23 @@ const signIn = async (request, response, next) => {
 };
 
 const update = async (request, response, next) => {
-  const {name, email, password, phones} = request.body;
+  const {
+    name, email, password, phones,
+  } = request.body;
 
   try {
-    const { error } = await schema.update.validateAsync({ name, email, password, phones })
+    const { error } = await schema.update.validateAsync({
+      name, email, password, phones,
+    });
 
-    if(!error) { return next(); } 
-    return response.status(400).json({ error }).send()
+    if (!error) { return next(); }
+    return response.status(400).json({ error }).send();
   } catch (error) {
-    return response.status(400).json({ error }).send()
+    return response.status(400).json({ error }).send();
   }
-}
+};
 module.exports = {
   signUp,
   signIn,
-  update
+  update,
 };
