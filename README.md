@@ -15,6 +15,10 @@
     - [Tabela de rotas](#tabela-de-rotas)
     - [Exemplos de uso](#exemplos-de-uso)
         - [Criar usuario](#criar-usuario)
+        - [Login usuario](#login-usuario)
+        - [Buscar usuario](#buscar-usuario)
+        - [Atualizar usuario](#atualizar-usuario)
+        - [Apagar usuario](#apagar-usuario)
 ## Sobre o projeto
 
 Este desafio trate-se de uma das etapas no processo seletivo para a Concrete Solutions neste projeto é empregrado varias bibliotecas para um desenvolvimento eficaz da api, tais como :  **Express**, **Mongoose**, **Jest**, **ESLint**, **Cors**,  **Faker**, entre outras.
