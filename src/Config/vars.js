@@ -9,7 +9,7 @@ dotenv.config({
 module.exports = {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
-  expired_time: process.env.EXPIRE_MINUTES,
+  expiredTime: process.env.EXPIRE_MINUTES,
   secret: process.env.APP_SECRET,
   dbURI:
     process.env.NODE_ENV === 'development'
