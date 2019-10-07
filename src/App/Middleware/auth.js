@@ -1,26 +1,28 @@
-const jwt = require("jsonwebtoken");
-const { secret } = require("../../Config/vars");
-const auth = (request, response, next) => {
-  const authorization = request.headers.authorization;
+const jwt = require('jsonwebtoken');
+const { secret } = require('../../Config/vars');
 
-  if (!authorization)
+const auth = (request, response, next) => {
+  const { authorization } = request.headers;
+
+  if (!authorization) {
     return response
       .status(401)
-      .json({ message: "Sem Token de autenticação" })
+      .json({ message: 'Sem Token de autenticação' })
       .send();
+  }
 
-  const [type , token] = authorization.split(" ");
+  const [type, token] = authorization.split(' ');
 
-  if(type !== 'Bearer') return response.status(401).json({ message: 'Token Invalido'}).send();
+  if (type !== 'Bearer') return response.status(401).json({ message: 'Token Invalido' }).send();
 
   try {
     jwt.verify(token, secret);
-    next();
+    return next();
   } catch (error) {
     return response
       .status(401)
       .json({
-        message: "Token invalido"
+        message: 'Token invalido',
       })
       .send();
   }
