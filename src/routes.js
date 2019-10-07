@@ -10,7 +10,7 @@ routes.post("/signin", Validate.signIn, SessionController.auth);
 routes.use(auth);
 
 routes.get("/user/:uuid", UserController.show);
-routes.put("/user", UserController.update);
+routes.put("/user", Validate.update, UserController.update);
 routes.delete("/user", UserController.destroy);
 
 routes.get("*", (request, response) =>
