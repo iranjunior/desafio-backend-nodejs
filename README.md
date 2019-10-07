@@ -115,7 +115,7 @@ Rota  |  Descrição
 ### Exemplos de uso
 
 #### Criar usuario
-
+---
 ```
 POST /signup
 ```
@@ -163,7 +163,7 @@ Content-Type     application/json
 
 
 #### Login usuario
-
+---
 ```
 POST /signin
 ```
@@ -196,7 +196,7 @@ Content-Type     application/json
 
 
 #### Buscar usuario
-
+---
 ```
 GET /user/5d969cfa5c93d146785a0d3b
 ```
@@ -242,7 +242,7 @@ Authorization    Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI4MjYyNzM
 
 
 #### Atualizar usuario
-
+---
 ```
 PUT /user
 ```
@@ -263,10 +263,16 @@ Authorization    Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI4MjYyNzM
 
 **Response**
 ```
+{
+    "n": 1,
+    "updatedRows": 1,
+    "status": "ok"
+
+}
 ```
 
 #### Apagar usuario
-
+---
 ```
 DELETE /user
 ```
@@ -284,4 +290,10 @@ Authorization    Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI4MjYyNzM
 
 **Response**
 ```
+{
+    "n": 1,
+    "DelectedRows": 1,
+    "status": "ok"
+
+}
 ```
