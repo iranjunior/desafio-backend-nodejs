@@ -1,15 +1,444 @@
 {
     "openapi": "3.0.0",
     "info": {
-
+        "title": "Documentação",
         "description": "Está documentação é para a API do Onboarding do capitulo de Node",
         "version": "1.0.0",
-        "title": "Documentação",
-        "license":{
+        "license": {
             "name": "MIT",
             "url": "https://opensource.org/licenses/MIT"
         },
-    "host": "localhost:3333",
-    "basePath": "/"
+        "host": "localhost:3333",
+        "basePath": "/"
+    },
+    "paths": {
+        "/signup": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Rota de criação de um usuario",
+                "requestBody": {
+                    "description": "Informações para criação de usuario",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuario Criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/ResponseCreated"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Informaçoes erradas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/BadRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Usuario já cadastrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/signin": {
+            "post": {
+                "tags": [
+                    "Session"
+                ],
+                "summary": "Rota para Logar o usuario",
+                "requestBody": {
+                    "description": "Informações para criação de usuario",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/RequestLogin"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario Logado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/ResponseCreated"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Informaçoes erradas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/BadRequest"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario e/ou senha invalidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties":{
+                                        "message":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{uuid}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Buscar usuario",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "O uuid é uma string que representa o usuario"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Bearer token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "O Bearer Token, é um token jwt que determina se o requisitante tem autorização ou não de acessar aquela rota"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/ResponseGetUser"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },"/user": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Rota de atualização de um usuario",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Bearer token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "O Bearer Token, é um token jwt que determina se o requisitante tem autorização ou não de acessar aquela rota"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Informações que atualização o usuario",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario Atualzado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties":{
+                                        "n": {"type": "integer" },
+                                        "nModified": {"type": "integer"},
+                                        "ok": {"type": "integer"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Informaçoes erradas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/BadRequest"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Rota de delete de um usuario",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Bearer token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "O Bearer Token, é um token jwt que determina se o requisitante tem autorização ou não de acessar aquela rota"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario apagado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties":{
+                                        "n": {"type": "integer" },
+                                        "ok": {"type": "integer" },
+                                        "deletedCount": {"type": "integer" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ResponseCreated": {
+            "type": "object",
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "CreatedAt": {
+                    "type": "string"
+                },
+                "UpdatedAt": {
+                    "type": "string"
+                },
+                "LastLogin": {
+                    "type": "string"
+                }
+            }
+        },
+        "ResponseGetUser": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "phones": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Phones"
+                    }
+                },
+                "uuid": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "CreatedAt": {
+                    "type": "string"
+                },
+                "UpdatedAt": {
+                    "type": "string"
+                },
+                "LastLogin": {
+                    "type": "string"
+                }
+            }
+        },
+        "Phones": {
+            "type": "object",
+            "properties": {
+                "ddd": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                }
+            }
+        },
+        "RequestLogin":{
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phones": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Phones"
+                    }
+                }
+            }
+        },
+        "ContextJoiError": {
+            "type": "object",
+            "properties": {
+                "label": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
+                }
+            }
+        },
+        "JoiValidate": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "context": {
+                    "$ref": "#/definitions/ContextJoiError"
+                }
+            }
+        },
+        "BadRequest": {
+            "type": "object",
+            "properties": {
+                "_original": {
+                    "type": "object",
+                    "$ref": "#/definitions/User"
+                },
+                "details": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/JoiValidate"
+                    }
+                }
+            }
+        }
     }
 }
