@@ -18,6 +18,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      index: true,
     },
     phones: [
       {
@@ -29,7 +30,8 @@ const UserSchema = new Schema(
           type: String,
           required: true,
         },
-      }],
+      },
+    ],
     password: {
       type: String,
       required: true,
@@ -73,14 +75,19 @@ UserSchema.static('verifyPassword', async function (email, password) {
   return validate;
 });
 
-
 UserSchema.static('loginUser', async function (email) {
   const lastLogin = Date.now();
 
   const token = Token.generate(lastLogin);
 
   await this.updateOne({ email }, { lastLogin, token });
-  const user = await this.findOne({ email }).select(['uuid', 'createdAt', 'updatedAt', 'lastLogin', 'token']);
+  const user = await this.findOne({ email }).select([
+    'uuid',
+    'createdAt',
+    'updatedAt',
+    'lastLogin',
+    'token',
+  ]);
 
   return user;
 });
@@ -94,7 +101,6 @@ UserSchema.static('checkUser', async function (email) {
   }
 });
 
-
 UserSchema.static('findForId', async function (uuid) {
   try {
     const [user] = await this.find({ uuid });
@@ -103,6 +109,5 @@ UserSchema.static('findForId', async function (uuid) {
     return false;
   }
 });
-
 
 module.exports = model('User', UserSchema);
