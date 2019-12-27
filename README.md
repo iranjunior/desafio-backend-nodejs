@@ -1,6 +1,6 @@
 
 # Desafio Backend NodeJS
-
+[![Coverage Status](https://coveralls.io/repos/github/iranjunior/desafio-backend-nodejs/badge.svg?branch=master)](https://coveralls.io/github/iranjunior/desafio-backend-nodejs?branch=master)
 
 **Tabela de Conteudos**
 
