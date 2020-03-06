@@ -1,1 +1,17 @@
 language: node_js
+sudo: false
+node_js:
+    - 12
+branches:
+    only:
+    - master
+cache:
+    yarn: true
+    directories:
+      - node_modules
+jobs:
+    fast_finish: true
+    install:
+        - yarn
+    script:
+        - yarn test:coverage --detectOpenHandles --forceExit --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
