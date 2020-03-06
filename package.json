@@ -11,7 +11,7 @@
     "test": "cross-env jest NODE_ENV=test index.spec.js --watch",
     "test:unit": "cross-env jest NODE_ENV=test  Units --watch",
     "test:integrations": "cross-env jest NODE_ENV=test Integrations --watch",
-    "test:coverage": "cross-env NODE_ENV=test jest index.spec.js --collect-coverage",
+    "test:coverage": "cross-env NODE_ENV=test jest Units --collect-coverage",
     "validate": "cross-env NODE_ENV=test yarn lint && jest index.spec.js"
   },
   "dependencies": {

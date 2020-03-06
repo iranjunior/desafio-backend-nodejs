@@ -15,3 +15,9 @@ jobs:
         - yarn
     script:
         - yarn test:coverage --detectOpenHandles --forceExit --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
+    deploy: &heroku
+    provider: heroku
+    app: desafio-backend-concrete
+    api_key: $HEROKU_APP_KEY
+    on:
+        repo: iranjunior/desafio-backend-nodejs
