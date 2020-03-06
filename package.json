@@ -7,12 +7,12 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "lint": "eslint ./src/ --ignore-path .gitignore --ignore-pattern internals/scripts",
-    "start": "node src/index.js NODE_ENV=production",
-    "test": "jest index.spec.js --watch NODE_ENV=test",
-    "test:unit": "jest Units --watch NODE_ENV=test",
-    "test:integrations": "jest Integrations --watch NODE_ENV=test",
-    "test:coverage": "index.spec.js --collect-coverage NODE_ENV=test jest ",
-    "validate": "yarn lint && jest index.spec.js NODE_ENV=test"
+    "start": "cross-env NODE_ENV=production node src/index.js",
+    "test": "cross-env jest NODE_ENV=test index.spec.js --watch",
+    "test:unit": "cross-env jest NODE_ENV=test  Units --watch",
+    "test:integrations": "cross-env jest NODE_ENV=test Integrations --watch",
+    "test:coverage": "cross-env NODE_ENV=test jest index.spec.js --collect-coverage",
+    "validate": "cross-env NODE_ENV=test yarn lint && jest index.spec.js"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.4",
@@ -30,6 +30,8 @@
     "swagger-ui-express": "^4.1.2"
   },
   "devDependencies": {
+    "coveralls": "^3.0.9",
+    "cross-env": "^7.0.2",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
